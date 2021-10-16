@@ -1,0 +1,2046 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&family=Sen:wght@400;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <title>Netflix Design</title>
+    <style>
+        * {
+  margin: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #000000;
+}
+
+li{
+    list-style: none;
+}
+
+li a{
+    text-decoration: none;
+}
+
+.navbar {
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  position: sticky;
+  top: 0;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  height: 100%;
+  color: white;
+  font-family: "Sen", sans-serif;
+}
+
+.logo-container {
+  flex: 1;
+  position: relative;
+    z-index: 2;
+    height: 90px;
+}
+.logo-container img{
+    width: 140px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0 , -50%);
+    }
+
+.logo {
+  font-size: 30px;
+  color: #4dbf00;
+}
+
+.menu-container {
+  flex: 6;
+}
+
+.menu-list {
+  display: flex;
+  list-style: none;
+}
+
+.menu-list-item {
+  margin-right: 30px;
+}
+
+.menu-list-item.active {
+  font-weight: bold;
+}
+.profile-container {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.profile-text-container {
+  margin: 0 20px;
+}
+
+.profile-picture {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.toggle {
+  width: 40px;
+  height: 20px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.toggle-icon {
+  color: goldenrod;
+}
+
+.toggle-ball {
+  width: 18px;
+  height: 18px;
+  background-color: black;
+  position: absolute;
+  right: 1px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 1s ease all;
+}
+
+.sidebar {
+  width: 50px;
+  height: 100%;
+  background-color: black;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.left-menu-icon {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 40px;
+}
+
+.container {
+  background-color: #151515;
+  min-height: calc(100vh - 50px);
+  color: white;
+}
+
+.content-container {
+  margin-left: 50px;
+}
+
+.featured-content {
+  height: 50vh;
+  padding: 50px;
+}
+
+.featured-title {
+  width: 200px;
+}
+
+.featured-desc {
+  width: 500px;
+  color: lightgray;
+  margin: 30px 0;
+}
+
+.featured-button {
+  background-color: hsla(0, 100%, 37%, 0.747);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.movie-list-container {
+  padding: 0 20px;
+}
+
+.movie-list-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-list {
+  display: flex;
+  align-items: center;
+  height: 300px;
+  transform: translateX(0);
+  transition: all 1s ease-in-out;
+}
+
+.movie-list-item {
+  margin-right: 30px;
+  position: relative;
+}
+
+.movie-list-item:hover .movie-list-item-img {
+  transform: scale(1.2);
+  margin: 0 30px;
+  opacity: 0.5;
+}
+
+.movie-list-item:hover .movie-list-item-title,
+.movie-list-item:hover .movie-list-item-desc,
+.movie-list-item:hover .movie-list-item-button {
+  opacity: 1;
+}
+
+.movie-list-item-img {
+  transition: all 1s ease-in-out;
+  width: 270px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.movie-list-item-title {
+  background-color: #333;
+  padding: 0 10px;
+  font-size: 32px;
+  font-weight: bold;
+  position: absolute;
+  top: 10%;
+  left: 50px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+
+.movie-list-item-desc {
+  background-color: #333;
+  padding: 10px;
+  font-size: 14px;
+  position: absolute;
+  top: 30%;
+  left: 50px;
+  width: 230px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+
+.movie-list-item-button {
+  padding: 10px;
+  background-color: hsla(0, 100%, 37%, 0.747);;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 20px;
+  left: 50px;
+  opacity: 0;
+  transition: 1s all ease-in-out;
+}
+
+.arrow {
+  font-size: 120px;
+  position: absolute;
+  top: 90px;
+  right: 0;
+  color: lightgray;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.container.active {
+  background-color: white;
+}
+
+.movie-list-title.active {
+  color: black;
+}
+
+.navbar-container.active {
+  background-color: white;
+
+  color: black;
+}
+
+.sidebar.active{
+    background-color: white;
+}
+
+.left-menu-icon.active{
+    color: black;
+}
+
+.toggle.active{
+    background-color: black;
+}
+
+.toggle-ball.active{
+    background-color: white;
+    transform: translateX(-20px);
+}
+
+@media only screen and (max-width: 940px){
+    .menu-container{
+        display: none;
+    }
+}
+
+.footer{
+    max-width: 70%;
+    margin: 5rem auto;
+    overflow: auto;
+    
+}
+
+.footer ,
+.footer a{
+    color: #999999;
+    font-size: 0.9rem;
+}
+
+.footer p{
+    margin-bottom: 1.5rem;
+}
+
+.footer .footer-cols{
+    display: grid;
+    grid-template-columns: repeat(4 , 1fr);
+    grid-gap: 2rem;
+}
+
+.footer li{
+    line-height: 2.4;
+}
+
+.testimonial{
+  background-color: #151515;
+  margin: auto;
+  color:white;
+  padding: auto;
+  display:none;
+  overflow: auto;
+}
+
+.testimonial img {
+  float: right;
+  width: 410px;
+  opacity:0.5;
+}
+
+.testbtn{
+  background-color: hsla(0, 100%, 37%, 0.747);;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+  padding: 15px 30px;
+  position:relative;
+  top:40px;
+}
+
+.picbtn{
+    background-color: #151515; 
+    border:none;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Netflix Logo">
+            </div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item active"><a href="#" style="color: white;">Home</a></li>
+                    <li class="menu-list-item"><a href="#" style="color: white;">Movies</a></li>
+                    <li class="menu-list-item"><a href="#" style="color: white;">Series</a></li>
+                    <li class="menu-list-item"><a href="#" style="color: white;">Popular</a></li>
+                    <li class="menu-list-item"><a href="#" style="color: white;">Trends</a></li>
+
+                </ul>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content-container">
+            <div class="featured-content"
+                style="background: linear-gradient(to bottom, rgba(0,0,0,0), #151515), url('img/f-1.jpg');">
+                <img class="featured-title" src="f-t-1.png" alt="">
+                <p class="featured-desc">The popular series of english language that has been released
+                    by the world's famous director of america to gisplay innate skills of people.
+                </p>
+                <button class="featured-button">Play</button>
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Drama</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <div class="movie-list-item">
+                            <button onclick="myFunction1()" class="picbtn"><img class="movie-list-item-img" src="1.jpeg" alt=""></button>
+                        </div>
+                        
+                        <div class="movie-list-item">
+                            <button onclick="myFunction2()" class="picbtn"><img class="movie-list-item-img" src="2.jpeg" alt=""></button>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <button onclick="myFunction3()" class="picbtn"><img class="movie-list-item-img" src="3.jpg" alt=""></button>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <button onclick="myFunction4()" class="picbtn"><img class="movie-list-item-img" src="4.jpg" alt=""></button>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <button onclick="myFunction5()" class="picbtn"><img class="movie-list-item-img" src="5.jpg" alt=""></button>
+                        </div>
+
+                        <div class="movie-list-item">
+                            <button onclick="myFunction6()" class="picbtn"><img class="movie-list-item-img" src="6.jpg" alt=""></button>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+                  <div class="testimonial" id="myDIV1">
+                    <img src="1.jpeg">
+                    <h2>Her</h2><br>
+                    <p>Theodore Twombly, an introverted writer, buys an Artificial Intelligence system to help him write.<br> 
+                        However, when he finds out about the AI's ability to learn and adapt, he falls in love with it.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+                  
+                  <div class="testimonial" id="myDIV2">
+                    <img src="2.jpeg">
+                    <h2>Star Wars: The Rise of Skywalker</h2><br>
+                    <p>Star Wars: The Rise of Skywalker (also known as Star Wars: Episode IX – The Rise of <br> Skywalker) is a 2019 
+                        American epic space opera film produced, co-written, and directed by J. J. Abrams. <br> Produced by 
+                        Lucasfilm and Abrams' production company Bad Robot Productions, and <br> distributed by Walt Disney 
+                        Studios Motion Pictures, it is the third installment of the Star Wars sequel <br> trilogy, following The 
+                        Force Awakens (2015) and The Last Jedi (2017), and <br>the final episode of the nine-part "Skywalker 
+                        saga"</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV3">
+                    <img src="3.jpg">
+                    <h2>Storm</h2><br>
+                    <p>"Storm" is a superb drama about the continuing search for justice <br>for crimes committed 
+                        more than a decade ago during the war in Bosnia. Storm is a<br>2009 German-Danish-Dutch drama film directed by 
+                        Hans-Christian Schmid. Storm <br>follows the developments of a trial at the Hague for war crimes committed during the 
+                        Bosnian War.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV4">
+                    <img src="4.jpg">
+                    <h2>1917</h2><br>
+                    <p>1917 is a 2019 British war film directed and produced <br>by Sam Mendes, who co-wrote the 
+                        film with Krysty Wilson-Cairns. Partially inspired by stories told to <br>Mendes 
+                        by his paternal grandfather Alfred about his service during World War I,</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV5">
+                    <img src="5.jpg">
+                    <h2>Avengers</h2><br>
+                    <p>Marvel's The Avengers (classified under the name Marvel Avengers Assemble in<br> 
+                        the United Kingdom and Ireland), or simply The Avengers, is a 2012 American superhero<br> film 
+                        based on the Marvel Comics superhero team of the same name. Produced by Marvel <br> Studios and 
+                        distributed by Walt Disney Studios Motion Pictures, it is the <br> sixth film in the Marvel 
+                        Cinematic Universe (MCU). Written and directed by Joss Whedon, the <br> film features an ensemble 
+                        cast including Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris <br> Hemsworth, Scarlett Johansson, 
+                        and Jeremy Renner as the Avengers, alongside Tom Hiddleston, Clark <br> Gregg, Cobie Smulders, Stellan 
+                        Skarsgård, and Samuel L. Jackson.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV6">
+                    <img src="6.jpg">
+                    <h2>Rampage</h2><br>
+                    <p>Rampage is a 2018 American science fiction monster film directed by Brad Peyton and loosely <br> based on the 
+                        video game series of the same name by Midway Games. The film stars Dwayne Johnson, <br> Naomie Harris, 
+                        Malin Åkerman, Jake Lacy, Joe Manganiello, and Jeffrey Dean Morgan.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Thriller</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <div class="movie-list-item">
+                            <button onclick="myFunction7()" class="picbtn"><img class="movie-list-item-img" src="8.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction8()" class="picbtn"><img class="movie-list-item-img" src="9.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction9()" class="picbtn"><img class="movie-list-item-img" src="10.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction10()" class="picbtn"><img class="movie-list-item-img" src="11.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction11()" class="picbtn"><img class="movie-list-item-img" src="12.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction12()" class="picbtn"><img class="movie-list-item-img" src="1.jpg" alt=""></button>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+                <div class="testimonial" id="myDIV7">
+                    <img src="8.jpg">
+                    <h2>Oblivion</h2><br>
+                    <p>Oblivion is a 2013 American post-apocalyptic action-adventure film co-produced and directed by Joseph <br>Kosinski, and produced 
+                        by Peter Chernin with screenplay by Karl Gajdusek and Michael deBruyn, <br>starring Tom Cruise in the 
+                        main role alongside Olga Kurylenko, Andrea Riseborough, <br>Morgan Freeman and Nikolaj Coster-Waldau in 
+                        supporting roles.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+                  
+                  <div class="testimonial" id="myDIV8">
+                    <img src="9.jpg">
+                    <h2>Hobbit</h2><br>
+                    <p>The Hobbit is a film series consisting of three high fantasy adventure films directed <br> by Peter Jackson. The three films 
+                        are The Hobbit: An Unexpected Journey (2012), The Hobbit: <br>The Desolation of Smaug (2013), and The Hobbit: The Battle of 
+                        the Five Armies (2014).</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV9">
+                    <img src="10.jpg">
+                    <h2>Due Date</h2><br>
+                    <p>Due Date is a 2010 American black comedy road film directed by Todd Phillips, who wrote <br>the screenplay with Alan R. Cohen, 
+                        Alan Freedland, and Adam Sztykiel. The film follows a man <br>(Robert Downey Jr.) who must get across 
+                        the country to Los Angeles in time for the birth <br>of his child and is forced to road-trip with an 
+                        aspiring actor (Zach Galifianakis). <br>Michelle Monaghan, Juliette Lewis, and Jamie Foxx also star.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV10">
+                    <img src="11.jpg">
+                    <h2>Kick-Ass 2</h2><br>
+                    <p>Kick-Ass 2 is a 2013 black comedy superhero film written and directed by Jeff Wadlow. <br>It is based on the 
+                        comic book of the same name by Mark Millar and John Romita, Jr.. The film serves<br> as a sequel to 
+                        2010's Kick-Ass. Aaron Taylor-Johnson, Christopher Mintz-Plasse and Chloë<br> Grace Moretz reprise 
+                        their roles from the first film as Dave Lizewski, Chris D'Amico, and Mindy <br>Macready, respectively.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV11">
+                    <img src="12.jpg">
+                    <h2>The Emoji Movie</h2><br>
+                    <p>The Emoji Movie is a 2017 American computer-animated comedy film based on emoji faces,<br> smileys, 
+                        and graphics used in electronic messages; produced by Columbia <br>Pictures and Sony Pictures Animation, 
+                        and distributed by Sony Pictures Releasing. Directed <br>by Tony Leondis, who wrote it with Eric Siegel 
+                        and Mike White, the film stars <br>the voices of T.J. Miller, James Corden, Anna Faris, Maya Rudolph, 
+                        Steven Wright, <br>Jennifer Coolidge, Christina Aguilera, Sofía Vergara, Sean Hayes, and Patrick 
+                        Stewart.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV12">
+                    <img src="1.jpg">
+                    <h2>Series</h2><br>
+                    <p>Famous american based series you can get online through this link in one spot.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+            </div>
+
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">comedy</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <div class="movie-list-item">
+                            <button onclick="myFunction13()" class="picbtn"><img class="movie-list-item-img" src="18.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction14()" class="picbtn"><img class="movie-list-item-img" src="2.jpeg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction15()" class="picbtn"><img class="movie-list-item-img" src="15.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction16()" class="picbtn"><img class="movie-list-item-img" src="3.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction17()" class="picbtn"><img class="movie-list-item-img" src="4.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction18()" class="picbtn"><img class="movie-list-item-img" src="5.jpg" alt=""></button>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+                <div class="testimonial" id="myDIV13">
+                    <img src="18.jpg">
+                    <h2>Fairy Tail</h2><br>
+                    <p>Fairy Tail is a Japanese manga series written and illustrated by Hiro Mashima. It was<br> serialized in Kodansha's Weekly 
+                        Shōnen Magazine from August 2006 to July 2017, with the <br>individual chapters collected and published 
+                        into 63 tankōbon volumes.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+                  
+                  <div class="testimonial" id="myDIV14">
+                    <img src="2.jpeg">
+                    <h2>Star Wars: The Rise of Skywalker</h2><br>
+                    <p>Star Wars: The Rise of Skywalker (also known as Star Wars: Episode IX – The Rise of <br> Skywalker) is a 2019 
+                        American epic space opera film produced, co-written, and directed by J. J. Abrams. <br> Produced by 
+                        Lucasfilm and Abrams' production company Bad Robot Productions, and <br> distributed by Walt Disney 
+                        Studios Motion Pictures, it is the third installment of the Star Wars sequel <br> trilogy, following The 
+                        Force Awakens (2015) and The Last Jedi (2017), and the<br> final episode of the nine-part "Skywalker 
+                        saga"</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV15">
+                    <img src="15.jpg">
+                    <h2>The Lego Batman Movie </h2><br>
+                    <p>The Lego Batman Movie is a 2017 American-Danish-Australian computer-animated superhero<br>comedy film produced by the 
+                        Warner Animation Group, DC Entertainment, RatPac Entertainment,<br> Lego System A/S, Dan Lin's Lin 
+                        Pictures, Phil Lord and Christopher Miller's <br>Lord Miller Productions, Roy Lee's Vertigo Entertainment, and 
+                        Animal Logic, and <br>distributed by Warner Bros. Pictures.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV16">
+                    <img src="3.jpg">
+                    <h3>Storm</h3><br>
+                    <p>"Storm" is a superb drama about the continuing search for justice <br>for crimes committed 
+                        more than a decade ago during the war in Bosnia. Storm is a<br>2009 German-Danish-Dutch drama film directed by 
+                        Hans-Christian Schmid. Storm <br>follows the developments of a trial at the Hague for war crimes committed during the 
+                        Bosnian War.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV17">
+                    <img src="4.jpg">
+                    <h2>1917</h2><br>
+                    <p>1917 is a 2019 British war film directed and produced <br>by Sam Mendes, who co-wrote the 
+                        film with Krysty Wilson-Cairns. Partially inspired by stories told to <br>Mendes 
+                        by his paternal grandfather Alfred about his service during World War I,</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV18">
+                    <img src="5.jpg">
+                    <h2>Avengers</h2><br>
+                    <p>Marvel's The Avengers (classified under the name Marvel Avengers Assemble in<br> 
+                        the United Kingdom and Ireland), or simply The Avengers, is a 2012 American superhero<br> film 
+                        based on the Marvel Comics superhero team of the same name. Produced by Marvel <br> Studios and 
+                        distributed by Walt Disney Studios Motion Pictures, it is the <br> sixth film in the Marvel 
+                        Cinematic Universe (MCU). Written and directed by Joss Whedon, the <br> film features an ensemble 
+                        cast including Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris <br> Hemsworth, Scarlett Johansson, 
+                        and Jeremy Renner as the Avengers, alongside Tom Hiddleston, Clark <br> Gregg, Cobie Smulders, Stellan 
+                        Skarsgård, and Samuel L. Jackson.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+            </div>
+            <div class="movie-list-container">
+                <h1 class="movie-list-title">Romance</h1>
+                <div class="movie-list-wrapper">
+                    <div class="movie-list">
+                        <div class="movie-list-item">
+                            <button onclick="myFunction19()" class="picbtn"><img class="movie-list-item-img" src="17.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction20()" class="picbtn"><img class="movie-list-item-img" src="18.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction21()" class="picbtn"><img class="movie-list-item-img" src="19.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction22()" class="picbtn"><img class="movie-list-item-img" src="7.jpg" alt=""></button>
+                        </div>
+                        <div class="movie-list-item">
+                            <button onclick="myFunction23()" class="picbtn"><img class="movie-list-item-img" src="2.jpeg" alt=""></button>
+                        </div>
+                    </div>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </div>
+                <div class="testimonial" id="myDIV19">
+                    <img src="17.jpg">
+                    <h2>Aquaman</h2><br>
+                    <p>Aquaman is a 2018 American superhero film based on the DC Comics character of the same name. <br>Distributed by 
+                        Warner Bros. Pictures, it is the sixth film in the DC Extended Universe (DCEU).<br>The film was 
+                        directed by James Wan, from a screenplay by David Leslie Johnson-McGoldrick <br>and Will Beall. It 
+                        stars Jason Momoa as Aquaman, who sets out to lead the underwater <br>kingdom of Atlantis and stop his 
+                        half-brother, King Orm, from uniting the seven underwater<br> kingdoms to destroy the surface world. </p>
+                    <button class="testbtn">Play</button>
+                  </div>
+                  
+                  <div class="testimonial" id="myDIV20">
+                    <img src="18.jpg">
+                    <h2>Fairy Tail</h2><br>
+                    <p>Fairy Tail is a Japanese manga series written and illustrated by Hiro Mashima. It was<br> serialized in Kodansha's Weekly 
+                        Shōnen Magazine from August 2006 to July 2017, with the <br>individual chapters collected and published 
+                        into 63 tankōbon volumes.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV21">
+                    <img src="19.jpg">
+                    <h2>Spider-Man</h2><br>
+                    <p>Spider-Man is a 2002 American superhero film based on the Marvel Comics<br> character of the same name. Directed by 
+                        Sam Raimi from a screenplay by David Koepp,<br> it is the first installment in the Spider-Man trilogy, 
+                        and stars Tobey Maguire as <br>the title character, alongside Willem Dafoe, Kirsten Dunst, James 
+                        Franco, <br>Cliff Robertson, and Rosemary Harris. </p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV22">
+                    <img src="7.jpg">
+                    <h2>Ender's Game</h2><br>
+                    <p>Ender's Game is a 2013 American military science fiction action film based on Orson Scott<br> Card's 1985 
+                        novel of the same name. Written and directed by Gavin Hood, the film stars<br> Asa Butterfield as 
+                        Andrew "Ender" Wiggin, an unusually gifted child who is <br>sent to an advanced military academy in 
+                        space to prepare for a future alien invasion.</p>
+                    <button class="testbtn">Play</button>
+                  </div>
+
+                  <div class="testimonial" id="myDIV23">
+                    <img src="2.jpeg">
+                    <h2>Star Wars: The Rise of Skywalker</h2><br>
+                    <p>Star Wars: The Rise of Skywalker (also known as Star Wars: Episode IX – The Rise of <br> Skywalker) is a 2019 
+                        American epic space opera film produced, co-written, and directed by J. J. Abrams. <br> Produced by 
+                        Lucasfilm and Abrams' production company Bad Robot Productions, and <br> distributed by Walt Disney 
+                        Studios Motion Pictures, it is the third installment of the Star Wars sequel <br> trilogy, following The 
+                        Force Awakens (2015) and The Last Jedi (2017), <br>and the final episode of the nine-part  "Skywalker 
+                        saga"</p>
+                        <button class="testbtn">Play</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const arrows = document.querySelectorAll(".arrow");
+const movieLists = document.querySelectorAll(".movie-list");
+
+arrows.forEach((arrow, i) => {
+  const itemNumber = movieLists[i].querySelectorAll("img").length;
+  let clickCounter = 0;
+  arrow.addEventListener("click", () => {
+    const ratio = Math.floor(window.innerWidth / 270);
+    clickCounter++;
+    if (itemNumber - (4 + clickCounter) + (4 - ratio) >= 0) {
+      movieLists[i].style.transform = `translateX(${
+        movieLists[i].computedStyleMap().get("transform")[0].x.value - 300
+      }px)`;
+    } else {
+      movieLists[i].style.transform = "translateX(0)";
+      clickCounter = 0;
+    }
+  });
+
+  console.log(Math.floor(window.innerWidth / 270));
+});
+
+
+const ball = document.querySelector(".toggle-ball");
+const items = document.querySelectorAll(
+  ".container,.movie-list-title,.navbar-container,.sidebar,.left-menu-icon,.toggle"
+);
+
+ball.addEventListener("click", () => {
+  items.forEach((item) => {
+    item.classList.toggle("active");
+  });
+  ball.classList.toggle("active");
+});
+
+function myFunction1() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    x.style.display = "none";
+  }
+}
+
+function myFunction2() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (y.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "block";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none"; 
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";    
+    t.style.display = "none";  
+  } else {
+    y.style.display = "none";
+  }
+}
+
+function myFunction3() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (z.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "block";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none"; 
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none";  
+    t.style.display = "none";  
+  } else {
+    z.style.display = "none";
+  }
+}
+
+function myFunction4() {
+    var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (a.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "block";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";   
+    t.style.display = "none";   
+  } else {
+    a.style.display = "none";
+  }
+}
+
+function myFunction5() {
+    var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (b.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "block"; 
+    c.style.display = "none"; 
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";   
+    t.style.display = "none";  
+  } else {
+    b.style.display = "none";
+  }
+}
+
+function myFunction6() {
+    var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (c.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "block";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";    
+    t.style.display = "none";   
+  } else {
+    c.style.display = "none";
+  }
+}
+
+function myFunction7() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (d.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "block"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    d.style.display = "none";
+  }
+}
+
+function myFunction8() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (e.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "block";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    e.style.display = "none";
+  }
+}
+
+function myFunction9() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (f.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "block";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none"; 
+    t.style.display = "none";  
+
+  } else {
+    f.style.display = "none";
+  }
+}
+
+function myFunction10() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (g.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "block";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    g.style.display = "none";
+  }
+}
+
+function myFunction11() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (h.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "block"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    h.style.display = "none";
+  }
+}
+
+function myFunction12() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (i.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "block";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    i.style.display = "none";
+  }
+}
+
+function myFunction13() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (j.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "block";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    j.style.display = "none";
+  }
+}
+
+function myFunction14() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (k.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "block";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    k.style.display = "none";
+  }
+}
+
+function myFunction15() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (l.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "block";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none"; 
+    t.style.display = "none";  
+
+  } else {
+    l.style.display = "none";
+  }
+}
+
+function myFunction16() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (m.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "block";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    m.style.display = "none";
+  }
+}
+
+function myFunction17() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (n.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "block";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "none";  
+    t.style.display = "none";  
+
+  } else {
+    n.style.display = "none";
+  }
+}
+
+function myFunction18() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (o.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "block";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    o.style.display = "none";
+  }
+}
+
+function myFunction19() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (p.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "block";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    p.style.display = "none";
+  }
+}
+
+function myFunction20() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (q.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "block";  
+    r.style.display = "none";  
+    s.style.display = "none";   
+    t.style.display = "none";  
+
+  } else {
+    q.style.display = "none";
+  }
+}
+
+function myFunction21() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (r.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "block"; 
+    s.style.display = "none";    
+    t.style.display = "none";  
+
+  } else {
+    r.style.display = "none";
+  }
+}
+
+function myFunction22() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (s.style.display === "none") {
+    x.style.display = "none";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none"; 
+    s.style.display = "block";    
+    t.style.display = "none";  
+
+  } else {
+    s.style.display = "none";
+  }
+}
+
+function myFunction23() {
+  var x = document.getElementById("myDIV1");
+  var y= document.getElementById("myDIV2");
+  var z= document.getElementById("myDIV3");
+  var a= document.getElementById("myDIV4");
+  var b= document.getElementById("myDIV5");
+  var c= document.getElementById("myDIV6");
+  var d= document.getElementById("myDIV7");
+  var e= document.getElementById("myDIV8");
+  var f= document.getElementById("myDIV9");
+  var g= document.getElementById("myDIV10");
+  var h= document.getElementById("myDIV11");
+  var i= document.getElementById("myDIV12");
+  var j= document.getElementById("myDIV13");
+  var k= document.getElementById("myDIV14");
+  var l= document.getElementById("myDIV15");
+  var m= document.getElementById("myDIV16");
+  var n= document.getElementById("myDIV17");
+  var o= document.getElementById("myDIV18");
+  var p= document.getElementById("myDIV19");
+  var q= document.getElementById("myDIV20");
+  var r= document.getElementById("myDIV21");
+  var s= document.getElementById("myDIV22");
+  var t= document.getElementById("myDIV23");
+  if (t.style.display === "none") {
+    x.style.display = "block";
+    y.style.display = "none";
+    z.style.display = "none";
+    a.style.display = "none";
+    b.style.display = "none"; 
+    c.style.display = "none";
+    d.style.display = "none"; 
+    e.style.display = "none";  
+    f.style.display = "none";  
+    g.style.display = "none";  
+    h.style.display = "none"; 
+    i.style.display = "none";  
+    j.style.display = "none";  
+    k.style.display = "none";  
+    l.style.display = "none";  
+    m.style.display = "none";  
+    n.style.display = "none";  
+    o.style.display = "none";  
+    p.style.display = "none";  
+    q.style.display = "none";  
+    r.style.display = "none";  
+    t.style.display = "block";  
+
+  } else {
+    t.style.display = "none";
+  }
+}
+  </script>
+
+<footer class="footer">
+    <p>Questions? Contact US</p>
+    <div class="footer-cols">
+        <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Investor Relations</a></li>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Speed Test</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Help Centre</a></li>
+            <li><a href="#">Jobs</a></li>
+            <li><a href="#">Cookie Preferences</a></li>
+            <li><a href="#">Watch for Free</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Ways to Watch</a></li>
+            <li><a href="#">Corporate Information</a></li>
+            <li><a href="#">Legal Notices</a></li>
+        </ul>
+        <ul>
+            <li><a href="#">Media Centre</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Netflix Originals</a></li>
+        </ul>
+    </div>
+</footer>
+</body>
+
+</html>
